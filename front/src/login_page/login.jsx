@@ -18,14 +18,14 @@ export default function Login(){
                         <Box
                         component="form"
                         sx={{
-                            '& > :not(style)': { m: 1, width: '25ch' },
+                            '& > :not(style)': { m: 1, width: '25ch'},
                         }}
                         noValidate
                         autoComplete="off"
                         >
                             <TextField id="outlined-basic" label="User" variant="outlined" />
                             <TextField id="outlined-basic" label="Password" variant="outlined" />
-                            <Button variant="contained">Ingresar</Button>
+                            <Button variant="contained" style={{backgroundColor: '#DCBF52'}}>Ingresar</Button>
                         </Box>
                     </div>
                 </section>
