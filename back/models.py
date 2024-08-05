@@ -1,6 +1,14 @@
 from django.db import models
 
 # Create your models here.
+
+class User(models.Model):
+    user_identifier = models.CharField(max_length=100, default="")
+    password = models.CharField(max_length=100, default="")
+
+    def __str__(self):
+        return self.user_identifier
+
 class Client(models.Model):
     id = models.AutoField(primary_key=True)
     complete_name = models.CharField(max_length=100, default="")
@@ -10,4 +18,4 @@ class Client(models.Model):
     problem = models.CharField(max_length=1000, default="")
 
     def __str__(self):
-        return self.id
+        return str(f'{self.id} - {self.complete_name}')

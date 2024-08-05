@@ -1,17 +1,18 @@
 .topBar{
     text-align: center;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    height: 100px;
+    height: 80px;
 }
 
-.topBar img{
-    margin-top: 10px;
+.topBar .logos img{
+    margin-top: 20px;
 }
 
 .headSituation{
     display: flex;
     align-items: center;
     gap: 20px;
+    height: 80px;
 }
 
 .titleSituation{
@@ -20,8 +21,8 @@
 
 .toDoList{
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     gap: 150px;
-    margin-top: 50px;
+    margin: 50px 150px 0px 150px;
 }
