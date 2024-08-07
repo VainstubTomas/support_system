@@ -1,3 +1,4 @@
+import os
 
 from pathlib import Path
 
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'back',
+    'corsheaders',
     'rest_framework'
 ]
 
@@ -38,6 +40,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'back_api.urls'
@@ -45,7 +48,7 @@ ROOT_URLCONF = 'back_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'back_api','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
