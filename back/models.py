@@ -1,13 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class User(models.Model):
-    user_identifier = models.CharField(max_length=100, default="")
-    password = models.CharField(max_length=100, default="")
+class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.user_identifier
+    REQUIRED_FIELDS=[]
 
 class Client(models.Model):
     id = models.AutoField(primary_key=True)

@@ -1,11 +1,15 @@
 from django.urls import path
-from .views import clientList, clientDetail
+from back.views import ClientDetail, ClientList, RegisterView, LoginView, UserView, LogoutView
 
 app_name = 'back'
 
 urlpatterns = [
-    path("",clientList.as_view(), name="listcreate"),
-    path("<int:pk>/",clientDetail.as_view(), name="detailcreate")
+    path("",ClientList.as_view(), name="listcreate"),
+    path("<int:pk>/",ClientDetail.as_view(), name="detailcreate"),
+    path("register", RegisterView.as_view()),
+    path("login", LoginView.as_view()),
+    path("user", UserView.as_view()),
+    path("logout", LogoutView.as_view())
 ]
 
 
