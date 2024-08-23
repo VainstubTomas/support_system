@@ -37,12 +37,14 @@ class LoginView(APIView):
         #Payload cumple el rol de diccionario, el cual almacena los datos del usuario (id), determina el tiempo de expiracion y el tiempo de emision del token
         payload = {
             'id': user.id,
-            'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
+            'exp':datetime.datetime.now()+datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.now()
         }
 
         #token codifica el payload y lo transorma a JWT mediante HS256 
         token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+        #'secret' variable de entorno para mayor seguridad
 
         #crea una respuesta http vacia
         response = Response()
