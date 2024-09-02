@@ -1,6 +1,6 @@
 # Front
 
-React Vite (JSX, TSX) + Taildwind CSS +
+React Vite (JSX, TSX) + Taildwind CSS + MUI + ShadCN Library
 
 # Back
 
