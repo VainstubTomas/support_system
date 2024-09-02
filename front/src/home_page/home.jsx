@@ -1,5 +1,7 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 import './home.css'
 
 export default function Home (){
@@ -24,22 +26,13 @@ export default function Home (){
                 </section>
 
                 <section className='toDoList'>
-                    <div className='toDo'>
-                        <div className='headSituation'>
-                            <p className='titleSituation'>to-do</p>
-                        </div>
-                    </div>
-                    <div className='inProgress'>
-                        <div className='headSituation'>
-                            <p className='titleSituation'>in progress</p>
-                        </div>
-                    </div>
-                    <div className='complete'>
-                        <div className='headSituation'>
-                            <p className='titleSituation'>complete</p>
-                        </div>
+                    <div className='add'>
+                        <Fab aria-label="add" className='addIcon'>
+                            <AddIcon />
+                        </Fab>
                     </div>
                 </section>
+
             </body>
         </>
     )
