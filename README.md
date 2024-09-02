@@ -2,6 +2,6 @@
 
 React Vite (JSX, TSX) + Taildwind CSS +
 
-# Front
+# Back
 
 Python + Django
