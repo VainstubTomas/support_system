@@ -9,7 +9,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import './home.css';
 
 export default function Home() {
-
   const Navigate = useNavigate();
 
   const Exit = () => {
@@ -24,26 +23,25 @@ export default function Home() {
   });
 
   const [rows, setRows] = useState([]);
+  const [searchEmail, setSearchEmail] = useState(''); // Nuevo estado para el filtro de email
 
   // useEffect para obtener los clientes cuando el componente se monta
   useEffect(() => {
-    // Cargar los clientes guardados en localStorage al montar el componente
     const savedRows = JSON.parse(localStorage.getItem('clients')) || [];
 
     if (savedRows.length > 0) {
       setRows(savedRows);
     }
 
-    // Puedes seguir obteniendo los datos del servidor si es necesario
     axios
-      .get('http://127.0.0.1:8000/') // Cambia esta URL por la correcta de tu servidor
+      .get('http://127.0.0.1:8000/')
       .then((response) => {
         setRows(response.data);
       })
       .catch((error) => {
         console.error('Error al obtener los clientes:', error);
       });
-  }, []); // [] asegura que se ejecute solo una vez al montarse el componente
+  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -55,16 +53,12 @@ export default function Home() {
 
   const handleAdd = () => {
     axios
-      .post('http://127.0.0.1:8000/', formData) // Cambia la URL si es necesario
+      .post('http://127.0.0.1:8000/', formData)
       .then((response) => {
-        // Actualiza la tabla con el nuevo informe
         const updatedRows = [...rows, formData];
         setRows(updatedRows);
-
-        // Guardar los clientes en localStorage
         localStorage.setItem('clients', JSON.stringify(updatedRows));
 
-        // Reinicia el formulario
         setFormData({
           complete_name: '',
           phone_number: '',
@@ -77,58 +71,81 @@ export default function Home() {
       });
   };
 
+  const handleDelete = (index) => {
+    const updatedRows = rows.filter((_, i) => i !== index);
+    setRows(updatedRows);
+    localStorage.setItem('clients', JSON.stringify(updatedRows));
+  };
+
+  const filteredRows = rows.filter((row) =>
+    row.email.toLowerCase().includes(searchEmail.toLowerCase())
+  );
+
   return (
     <body>
       <section className="topBar">
         <div className='logos'>
           <div className='logos_principal'>
-            <img src="/assets/valkyria.png" alt="Logo Valkyria" style={{maxWidth:'100px'}}/>
-            <img src="/assets/by.png" alt="Logo Ivolution" style={{maxWidth:'100px'}}/>
+            <img src="/assets/valkyria.png" alt="Logo Valkyria" style={{ maxWidth: '100px' }} />
+            <img src="/assets/by.png" alt="Logo Ivolution" style={{ maxWidth: '100px' }} />
           </div>
-          <LogoutIcon onClick={Exit} className='logOutIcon'/>
+          <LogoutIcon onClick={Exit} className='logOutIcon' />
         </div>
       </section>
 
       <div className='toDoList'>
-        <section className="tables">
-          <BasicTable rows={rows} /> {/* Aquí utilizamos el componente BasicTable */}
+        <section className='dataTable'>
+          <TextField
+            id="search-email"
+            label="Search by Email"
+            variant="outlined"
+            style={{ width: '450px', marginBottom: '20px' }}
+            value={searchEmail}
+            onChange={(e) => setSearchEmail(e.target.value)}
+          />
+
+          <section className="table">
+            <BasicTable rows={filteredRows} onDelete={handleDelete} /> {/* Agregado onDelete */}
+          </section>
         </section>
+        
+        
         <section className="newTask">
           <div className="newTaskInput">
-          <p>NEW TASK</p>
+            <p>NEW TASK</p>
             <TextField
               id="complete_name"
               label="Full name"
-              variant="filled"
-              style={{ width: '450px' }}
+              variant="outlined"
+              style={{ width: '450px', paddingBottom:'15px' }}
               value={formData.complete_name}
               onChange={handleInputChange}
             />
             <TextField
               id="phone_number"
               label="Phone number"
-              variant="filled"
-              style={{ width: '450px' }}
+              variant="outlined"
+              style={{ width: '450px', paddingBottom:'15px' }}
               value={formData.phone_number}
               onChange={handleInputChange}
             />
             <TextField
               id="email"
               label="Email"
-              variant="filled"
-              style={{ width: '450px' }}
+              variant="outlined"
+              style={{ width: '450px', paddingBottom:'15px' }}
               value={formData.email}
               onChange={handleInputChange}
             />
             <TextField
               id="problem"
               label="Problem"
-              variant="filled"
+              variant="outlined"
               style={{ width: '450px' }}
               value={formData.problem}
               onChange={handleInputChange}
             />
-            <Fab aria-label="add" style={{ marginTop: '5px' }} onClick={handleAdd}>
+            <Fab aria-label="add" style={{ marginTop: '40px'}} onClick={handleAdd}>
               <AddIcon />
             </Fab>
           </div>
@@ -137,4 +154,3 @@ export default function Home() {
     </body>
   );
 }
-

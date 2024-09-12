@@ -6,8 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function BasicTable({ rows }) {
+export default function BasicTable({ rows, onDelete }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -17,6 +19,7 @@ export default function BasicTable({ rows }) {
             <TableCell style={{ whiteSpace: 'nowrap', fontWeight: 'bold' }}>Phone</TableCell>
             <TableCell style={{ whiteSpace: 'nowrap', fontWeight: 'bold' }}>Email</TableCell>
             <TableCell style={{ whiteSpace: 'nowrap', fontWeight: 'bold' }}>Problem</TableCell>
+            <TableCell style={{ whiteSpace: 'nowrap', fontWeight: 'bold' }}>Actions</TableCell> {/* Nueva columna */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,11 +31,15 @@ export default function BasicTable({ rows }) {
               <TableCell style={{ wordWrap: 'break-word', maxWidth: '200px' }}>{row.phone_number}</TableCell>
               <TableCell style={{ wordWrap: 'break-word', maxWidth: '200px' }}>{row.email}</TableCell>
               <TableCell style={{ wordWrap: 'break-word', maxWidth: '200px' }}>{row.problem}</TableCell>
+              <TableCell>
+                <IconButton aria-label="delete" onClick={() => onDelete(index)}>
+                <DeleteIcon />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
+);
 }
-
